@@ -7,10 +7,17 @@ public class Bulletscript : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private float destTime = 3f;
-    [SerializeField] private float damage;
     [SerializeField] private LayerMask lm;
+    private float speed;
+    private float damage;
 
-    [SerializeField] private float speed;
+    public void Initialise(float speed, float damage = 0)
+    {
+        this.speed = speed;
+        this.damage = damage;
+    }
+
+    // is used when I want to change initial values from other sctips.
     private void Start()
     { 
         rb = GetComponent<Rigidbody2D>();

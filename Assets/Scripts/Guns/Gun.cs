@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     //Gun stats 
-    public int damage;
+    public int damage, speed;
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
@@ -116,7 +116,11 @@ public class Gun : MonoBehaviour
         //    }  
         //}
 
-        Instantiate(bulletPrefab, gunTip.position, gunTip.rotation);
+        //Instantiates the object on a scene and than adjusts current values  
+
+        GameObject bullet = Instantiate(bulletPrefab, gunTip.position, gunTip.rotation);
+        Bulletscript bs = bullet.GetComponent<Bulletscript>();
+        bs.Initialise(speed, damage);
 
         Invoke(nameof(ResetShot), timeBetweenShooting);
 
@@ -136,52 +140,56 @@ public class Gun : MonoBehaviour
         reloading = false;
         Debug.Log("Reloaded!!!");
     }
+
+
+    //later can be used to adjust damage and bullet speed from this script
+
     //private void OnTriggerEnter2D(Collider2D collider)
     //{
     //    Enemy_Moving enemy = collider.GetComponent<Enemy_Moving>();
     //    if (collider.CompareTag("Enemy"))
     //    {
-    //        enemy.TakeDamage(damage);
+    //        enemy.Damage(damage);
     //    }
-    //    Destroy(bulletpref);
+    //    Destroy(bulletPrefab);
     //}
 
     //(this part of a script will be used for laser gun mechanics)
-    private IEnumerator DelayedHit(Collider2D target, Vector3 hitPoint)
-    {
-        TrailRenderer trail = Instantiate(bullettrail, gunTip.position, Quaternion.identity);
+    //private IEnumerator DelayedHit(Collider2D target, Vector3 hitPoint)
+    //{
+    //    TrailRenderer trail = Instantiate(bullettrail, gunTip.position, Quaternion.identity);
 
-        float duration = 0.05f; // Time it takes to reach the target
-        float elapsed = 0f;
+    //    float duration = 0.05f; // Time it takes to reach the target
+    //    float elapsed = 0f;
 
-        Vector3 startPos = gunTip.position;
+    //    Vector3 startPos = gunTip.position;
 
-        while (elapsed < duration)
-        {
-            trail.transform.position = Vector3.Lerp(startPos, hitPoint, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+    //    while (elapsed < duration)
+    //    {
+    //        trail.transform.position = Vector3.Lerp(startPos, hitPoint, elapsed / duration);
+    //        elapsed += Time.deltaTime;
+    //        yield return null;
+    //    }
 
-        trail.transform.position = hitPoint;
+    //    trail.transform.position = hitPoint;
 
-        //if (target != null && target.CompareTag("Enemy"))
-        //{
-        //    Enemy_Moving enemy = target.GetComponent<Enemy_Moving>();
-        //    if (enemy != null)
-        //    {
-        //        enemy.Damage(damage);
-        //    }
-        //}
-        if (target != null && target.CompareTag("Enemy"))
-        {
-            Enemy_Moving enemy = target.GetComponent<Enemy_Moving>();
-            if (enemy != null)
-            {
-                Destroy(trail.gameObject, trail.time); // Cleanup
-            }
-        }
-        Destroy(trail.gameObject, trail.time);
-        yield return null;
-    }
+    //if (target != null && target.CompareTag("Enemy"))
+    //{
+    //    Enemy_Moving enemy = target.GetComponent<Enemy_Moving>();
+    //    if (enemy != null)
+    //    {
+    //        enemy.Damage(damage);
+    //    }
+    //}
+    //    if (target != null && target.CompareTag("Enemy"))
+    //    {
+    //        Enemy_Moving enemy = target.GetComponent<Enemy_Moving>();
+    //        if (enemy != null)
+    //        {
+    //            Destroy(trail.gameObject, trail.time); // Cleanup
+    //        }
+    //    }
+    //    Destroy(trail.gameObject, trail.time);
+    //    yield return null;
+    //}
 }

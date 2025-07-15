@@ -168,7 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ecb3dbb78b9caf49a2b063abc1a99dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 1
+  speed: 100
   timeBetweenShooting: 0.001
   spread: 0.025
   range: 100
@@ -826,6 +827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  speed: 0
   timeBetweenShooting: 0
   spread: 0
   range: 0
@@ -1312,6 +1314,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 567113929}
   m_CullTransparentMesh: 1
+--- !u!1 &567771856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 567771857}
+  m_Layer: 16
+  m_Name: Bottom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &567771857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567771856}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1132562549}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &615308813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1498,7 +1531,6 @@ GameObject:
   - component: {fileID: 628922715}
   - component: {fileID: 628922714}
   - component: {fileID: 628922720}
-  - component: {fileID: 628922721}
   - component: {fileID: 628922722}
   - component: {fileID: 628922723}
   m_Layer: 8
@@ -1707,19 +1739,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.47852236, y: 0.17301959}
   m_EdgeRadius: 0
---- !u!114 &628922721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 628922713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab078ba4b7f1a7f4a929133fe9e383d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectionTag: Player
 --- !u!114 &628922722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1951,7 +1970,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ecb3dbb78b9caf49a2b063abc1a99dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 20
+  speed: 10
   timeBetweenShooting: 0.05
   spread: 0.025
   range: 100
@@ -2098,8 +2118,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1246949249}
   - {fileID: 1065662102}
+  - {fileID: 567771857}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1132562551
@@ -2538,37 +2558,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1220787132}
   m_CullTransparentMesh: 1
---- !u!1 &1246949248
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1246949249}
-  m_Layer: 16
-  m_Name: Bottom
-  m_TagString: Untagged
-  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1246949249
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246949248}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: -0.672, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1132562549}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1267181030
 GameObject:
   m_ObjectHideFlags: 0
@@ -4032,6 +4021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  speed: 0
   timeBetweenShooting: 1
   spread: 0
   range: 100
@@ -4173,6 +4163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+  speed: 0
   timeBetweenShooting: 1
   spread: 0.01
   range: 100

@@ -20,7 +20,7 @@ public class Bullet_hell_pattern : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //need to get a postion for each point firstly, and than providing a logic 
+        //need to get a postion for each point firstly, and than provide a logic 
         SunScript sun = GetComponent<SunScript>();
         sun.Speed(bullet_speed);
         angle = 2 * Mathf.PI / rotation_points;
