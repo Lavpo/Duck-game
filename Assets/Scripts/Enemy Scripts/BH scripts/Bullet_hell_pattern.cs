@@ -8,12 +8,13 @@ using UnityEngine.UIElements;
 
 public class Bullet_hell_pattern : MonoBehaviour
 {
+    public int damage, speed;
+
     private static int rotation_points = 7;
     private int radius = 1;
     private float angle;
     private Vector2[] rotation_positions = new Vector2[rotation_points];
     private float rotation_speed = 100;
-    [SerializeField] private float bullet_speed;
 
     [SerializeField] private GameObject bulletpattern;
 
@@ -21,8 +22,6 @@ public class Bullet_hell_pattern : MonoBehaviour
     void Update()
     {
         //need to get a postion for each point firstly, and than provide a logic 
-        SunScript sun = GetComponent<SunScript>();
-        sun.Speed(bullet_speed);
         angle = 2 * Mathf.PI / rotation_points;
 
         for (int i = 0;  i < rotation_points; i++)
@@ -38,7 +37,9 @@ public class Bullet_hell_pattern : MonoBehaviour
         {
             for (int i = 0; i < rotation_points; i++)
             {
-                Instantiate(bulletpattern, rotation_positions[i], Quaternion.Euler(0, 0, angle * i * Mathf.Rad2Deg));
+                GameObject bullet = Instantiate(bulletpattern, rotation_positions[i], Quaternion.Euler(0, 0, angle * i * Mathf.Rad2Deg));
+                SunScript sun = bullet.GetComponent<SunScript>();
+                sun.Initialise(speed, damage);
             }
         }
     }

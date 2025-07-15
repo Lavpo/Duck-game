@@ -6,9 +6,14 @@ public class SunScript : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private float destTime = 3f;
-    [SerializeField] private float damage;
     [SerializeField] private LayerMask lm;
-    [SerializeField] private float speed;
+    private float damage;
+    private float speed;
+    public void Initialise(float speed, float damage = 0)
+    {
+        this.speed = speed;
+        this.damage = damage;
+    }
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
