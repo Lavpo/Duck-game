@@ -7,7 +7,6 @@ public class Gun : MonoBehaviour
     //Gun stats 
     public int damage, speed;
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
-    public float gravity;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
     int bulletsLeft, bulletsShot;
@@ -32,7 +31,6 @@ public class Gun : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         readyToShoot = true;
-        Debug.Log("Gravity in gun script equals: " + gravity);
     }
     private void Update()
     {
@@ -40,17 +38,13 @@ public class Gun : MonoBehaviour
         //Drawing raycast
         if (Input.GetKeyDown(KeyCode.K) && !buttonpressed) buttonpressed = true;
         if (buttonpressed) Debug.DrawRay(gunTip.transform.position, gunTip.transform.right * 100, Color.blue);
-        if (Input.GetKeyDown(KeyCode.I) && buttonpressed)
-        {
-            buttonpressed = false;
-        }
+        if (Input.GetKeyDown(KeyCode.I) && buttonpressed) buttonpressed = false;
     }
     private void MyInput()
     {
         //Shooting
         if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
-
 
         //Reloading
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading) Reload();
@@ -82,7 +76,9 @@ public class Gun : MonoBehaviour
         Vector2 direction = (gunTip.transform.right + (Vector3)gunTip.transform.up * y).normalized;
         readyToShoot = false;
 
-        // [ WILL BE USED LATER FOR LASER GUN]
+        Vector2 hitPoint = gunTip.position + (Vector3)direction * range;
+
+        // [ WILL BE USED LATER FOR A LASER GUN]
 
         //if (buttonpressed) Debug.DrawRay(gunTip.transform.position, direction * 100, Color.cyan, 2);
         ////Spawns bullet to shoot
@@ -93,8 +89,6 @@ public class Gun : MonoBehaviour
         //GameObject bullet = Instantiate(bulletPrefab, gunTip.position, gunTip.rotation);
         //bullet.GetComponent<Rigidbody2D>().velocity = direction * 25;
         //Destroy(bullet, 2f);
-
-        Vector2 hitPoint = gunTip.position + (Vector3)direction * range;
 
         //if (rayHit.collider != null)
         //{
@@ -118,11 +112,13 @@ public class Gun : MonoBehaviour
         //    }  
         //}
 
-        //Instantiates the object on a scene and than adjusts current values  
 
+        // Instantiates the object on a scene and than adjusts current values  
         GameObject bullet = Instantiate(bulletPrefab, gunTip.position, gunTip.rotation);
         GrenadeBullet bs = bullet.GetComponent<GrenadeBullet>();
         bs.Initialise(speed, damage);
+
+        // Adjusts projectile properties 
 
         Invoke(nameof(ResetShot), timeBetweenShooting);
 

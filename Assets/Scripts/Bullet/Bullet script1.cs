@@ -21,9 +21,7 @@ public class Bulletscript : MonoBehaviour
     private void Start()
     { 
         rb = GetComponent<Rigidbody2D>();
-
         rb.velocity = speed * transform.right; 
-
         Destroy(gameObject, destTime);
     }
     private void OnTriggerEnter2D(Collider2D collider)

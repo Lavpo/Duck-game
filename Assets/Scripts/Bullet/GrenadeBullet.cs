@@ -28,7 +28,6 @@ public class GrenadeBullet : MonoBehaviour
         rb.velocity = speed * transform.right;
         Destroy(gameObject, destTime);
         gravity = rb.gravityScale;
-        Debug.Log("Gravity in GrenadeBullet script equals: " + gravity);
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
