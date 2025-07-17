@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4008655721640779060}
   - component: {fileID: 6165987695863359422}
   - component: {fileID: 5088649444525777839}
-  - component: {fileID: 2122296713401211428}
   - component: {fileID: 5412175058057481969}
+  - component: {fileID: -5437097945763845009}
   m_Layer: 18
   m_Name: Grenade bullet
   m_TagString: Untagged
@@ -114,22 +114,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &2122296713401211428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2946718550255086811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aca834e2e3f19648b5a7e1d83f11984, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destTime: 3
-  lm:
-    serializedVersion: 2
-    m_Bits: 320
 --- !u!61 &5412175058057481969
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -175,3 +159,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.118056774, y: 0.0625}
   m_EdgeRadius: 0
+--- !u!114 &-5437097945763845009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2946718550255086811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde5e98dc020a3a4d940a0b7c718136c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destTime: 3
+  lm:
+    serializedVersion: 2
+    m_Bits: 0
