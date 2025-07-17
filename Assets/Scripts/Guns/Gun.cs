@@ -7,6 +7,7 @@ public class Gun : MonoBehaviour
     //Gun stats 
     public int damage, speed;
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
+    public float gravity;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
     int bulletsLeft, bulletsShot;
@@ -31,6 +32,7 @@ public class Gun : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         readyToShoot = true;
+        Debug.Log("Gravity in gun script equals: " + gravity);
     }
     private void Update()
     {

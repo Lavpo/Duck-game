@@ -175,6 +175,7 @@ MonoBehaviour:
   range: 100
   reloadTime: 3
   timeBetweenShots: 0.01
+  gravity: 0
   magazineSize: 5000
   bulletsPerTap: 1
   allowButtonHold: 1
@@ -833,6 +834,7 @@ MonoBehaviour:
   range: 0
   reloadTime: 5
   timeBetweenShots: 1
+  gravity: 0
   magazineSize: 6
   bulletsPerTap: 0
   allowButtonHold: 0
@@ -1978,6 +1980,7 @@ MonoBehaviour:
   range: 100
   reloadTime: 3
   timeBetweenShots: 0.1
+  gravity: 0
   magazineSize: 30
   bulletsPerTap: 1
   allowButtonHold: 1
@@ -2477,6 +2480,7 @@ MonoBehaviour:
   range: 100
   reloadTime: 3
   timeBetweenShots: 0.1
+  gravity: 0
   magazineSize: 30
   bulletsPerTap: 1
   allowButtonHold: 1
@@ -4115,8 +4119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 015f6ac43be14b647b3c7ccd0a762e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 0}
+  gun: {fileID: 1863734247}
+  gunTip: {fileID: 1732505033}
   _segmentCount: 50
+  _curveLength: 1
 --- !u!120 &1764203983
 LineRenderer:
   serializedVersion: 2
@@ -4138,7 +4144,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: dc3d5f307ddaeef4db2c7aa698e3b047, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4326,6 +4332,7 @@ MonoBehaviour:
   range: 100
   reloadTime: 3
   timeBetweenShots: 0
+  gravity: 0
   magazineSize: 10
   bulletsPerTap: 1
   allowButtonHold: 1
@@ -4468,6 +4475,7 @@ MonoBehaviour:
   range: 100
   reloadTime: 3
   timeBetweenShots: 1
+  gravity: 0
   magazineSize: 12
   bulletsPerTap: 1
   allowButtonHold: 1
