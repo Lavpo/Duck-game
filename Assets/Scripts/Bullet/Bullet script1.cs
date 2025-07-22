@@ -28,16 +28,18 @@ public class Bulletscript : MonoBehaviour
     {
         if ((lm.value & (1 << collider.gameObject.layer)) > 0)
         {
-            //Enemy Damaging
+            //Applying knockback to the enemy
             Knockback kb = collider.gameObject.GetComponent<Knockback>();
 
             if (kb != null)
             {
                 kb.ApplyKnockback(transform.position);
             }
-            
+
+            //Demaging the enemy
             IDamageble idamageble = collider.GetComponent<IDamageble>();
             if (idamageble != null) idamageble.Damage(damage);//IDE0031
+
             //Destroying bullet
             Destroy(gameObject);
            

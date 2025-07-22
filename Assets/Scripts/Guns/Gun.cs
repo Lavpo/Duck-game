@@ -115,7 +115,7 @@ public class Gun : MonoBehaviour
 
         // Instantiates the object on a scene and than adjusts current values  
         GameObject bullet = Instantiate(bulletPrefab, gunTip.position, gunTip.rotation);
-        GrenadeBullet bs = bullet.GetComponent<GrenadeBullet>();
+        Bulletscript bs = bullet.GetComponent<Bulletscript>();
         bs.Initialise(speed, damage);
 
         // Adjusts projectile properties 

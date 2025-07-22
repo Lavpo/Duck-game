@@ -8,7 +8,7 @@ public class Knockback : MonoBehaviour
     public float knockbackForce = 100f;
     public float constForce = 5f;
 
-    public bool isBeingKnockedBacked { get; private set; }
+    public bool IsBeingKnockedBacked { get; private set; }
 
     private Rigidbody2D rb;
 
@@ -19,7 +19,7 @@ public class Knockback : MonoBehaviour
 
     public void ApplyKnockback(Vector3 sourceposition)
     {
-        if (isBeingKnockedBacked) return;
+        if (IsBeingKnockedBacked) return;
 
         Vector2 direction = (transform.position - sourceposition).normalized;
 
@@ -28,13 +28,13 @@ public class Knockback : MonoBehaviour
 
     private IEnumerator HandleKnockback(Vector3 direction)
     {
-        isBeingKnockedBacked = true;
+        IsBeingKnockedBacked = true;
         rb.velocity = Vector3.zero;
         rb.AddForce(direction * knockbackForce, ForceMode2D.Force); //I think problem is here 
 
         yield return new WaitForSeconds(knockbacktime);
 
         rb.velocity = Vector3.zero;
-        isBeingKnockedBacked = false;
+        IsBeingKnockedBacked = false;
     }
 }
