@@ -5,7 +5,7 @@ using UnityEngine;
 public class Knockback : MonoBehaviour
 {
     public float knockbacktime = 0.2f;
-    public float knockbackForce = 100f;
+    public float knockbackForce;
     public float constForce = 5f;
 
     public bool IsBeingKnockedBacked { get; private set; }
@@ -22,6 +22,12 @@ public class Knockback : MonoBehaviour
         if (IsBeingKnockedBacked) return;
 
         Vector2 direction = (transform.position - sourceposition).normalized;
+        //.normalized prevents an object to move with a higher speed when moving "diagonaly"
+
+        if (direction.y < 0)
+        {
+            direction.y = 0;
+        }
 
         StartCoroutine(HandleKnockback(direction));
     }
@@ -30,8 +36,7 @@ public class Knockback : MonoBehaviour
     {
         IsBeingKnockedBacked = true;
         rb.velocity = Vector3.zero;
-        rb.AddForce(direction * knockbackForce, ForceMode2D.Force); //I think problem is here 
-
+        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse); //I think problem is here 
         yield return new WaitForSeconds(knockbacktime);
 
         rb.velocity = Vector3.zero;
