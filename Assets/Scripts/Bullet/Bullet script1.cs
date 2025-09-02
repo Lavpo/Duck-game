@@ -21,7 +21,7 @@ public class Bulletscript : MonoBehaviour
     private void Start()
     { 
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = speed * transform.right; 
+        rb.velocity = speed * gameObject.transform.right; 
         Destroy(gameObject, destTime);
     }
     private void OnTriggerEnter2D(Collider2D collider)
@@ -33,7 +33,7 @@ public class Bulletscript : MonoBehaviour
 
             if (kb != null)
             {
-                kb.ApplyKnockback(transform.position);
+                kb.ApplyKnockback(gameObject.transform.position);
             }
 
             //Demaging the enemy

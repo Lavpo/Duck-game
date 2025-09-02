@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &32141404
 Transform:
   m_ObjectHideFlags: 0
@@ -1767,9 +1767,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690404a67ab7b7c41a0eeaaeb2b79f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbacktime: 0.2
+  knockbackTime: 0.2
   knockbackForce: 500
-  constForce: 5
 --- !u!95 &628922724
 Animator:
   serializedVersion: 5
@@ -1995,7 +1994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ecb3dbb78b9caf49a2b063abc1a99dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 0
   speed: 30
   timeBetweenShooting: 0.05
   spread: 0.025
@@ -2513,9 +2512,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690404a67ab7b7c41a0eeaaeb2b79f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbacktime: 0.2
-  knockbackForce: 20
-  constForce: 5
+  knockbackTime: 0.2
+  knockbackForce: 200
 --- !u!114 &1162068522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4405,9 +4403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690404a67ab7b7c41a0eeaaeb2b79f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbacktime: 0.2
-  knockbackForce: 20
-  constForce: 5
+  knockbackTime: 0.2
+  knockbackForce: 70
 --- !u!114 &1764125711
 MonoBehaviour:
   m_ObjectHideFlags: 0

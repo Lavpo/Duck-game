@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Knockback : MonoBehaviour
 {
-    public float knockbacktime = 0.2f;
-    public float knockbackForce;
-    public float constForce = 5f;
+    public float knockbackTime = 0.2f;
+    public float knockbackForce = 10f;
 
-    public bool IsBeingKnockedBacked { get; private set; }
+    public bool IsBeingKnockedBack { get; private set; }
 
     private Rigidbody2D rb;
 
@@ -17,29 +16,38 @@ public class Knockback : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void ApplyKnockback(Vector3 sourceposition)
+    /// <summary>
+    /// Call this when the enemy is hit, passing the bullet's position at collision.
+    /// </summary>
+    /// <param name="sourcePosition">Position of the bullet</param>
+    public void ApplyKnockback(Vector2 sourcePosition)
     {
-        if (IsBeingKnockedBacked) return;
+        if (IsBeingKnockedBack) return;
 
-        Vector2 direction = (transform.position - sourceposition).normalized;
-        //.normalized prevents an object to move with a higher speed when moving "diagonaly"
+        // Compute direction from hit source → enemy
+        Vector2 direction = (rb.position - sourcePosition).normalized; ;
 
-        if (direction.y < 0)
-        {
-            direction.y = 0;
-        }
+        // Add a little upward bias (optional)
+
+        direction.y = 0.2f;
+        direction.x = Mathf.Sign(direction.x) * 2;
+
+        direction.Normalize();
+
+        Debug.DrawRay(rb.position, direction * 2f, Color.blue, 3f);
+        Debug.DrawRay(rb.position, direction * 2f, Color.red, 1f);
 
         StartCoroutine(HandleKnockback(direction));
     }
 
-    private IEnumerator HandleKnockback(Vector3 direction)
+    private IEnumerator HandleKnockback(Vector2 direction)
     {
-        IsBeingKnockedBacked = true;
-        rb.velocity = Vector3.zero;
-        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse); //I think problem is here 
-        yield return new WaitForSeconds(knockbacktime);
+        IsBeingKnockedBack = true;
 
-        rb.velocity = Vector3.zero;
-        IsBeingKnockedBacked = false;
+        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(knockbackTime);
+
+        IsBeingKnockedBack = false;
     }
 }
