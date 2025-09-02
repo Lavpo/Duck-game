@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Knockback : MonoBehaviour
 {
-    public float knockbacktime = 0.2f;
-    public float knockbackForce = 100f;
-    public float constForce = 5f;
+    public float knockbackTime = 0.2f;
+    public float knockbackForce = 10f;
 
-    public bool isBeingKnockedBacked { get; private set; }
+    public bool IsBeingKnockedBack { get; private set; }
 
     private Rigidbody2D rb;
 
@@ -17,24 +16,38 @@ public class Knockback : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void ApplyKnockback(Vector3 sourceposition)
+    /// <summary>
+    /// Call this when the enemy is hit, passing the bullet's position at collision.
+    /// </summary>
+    /// <param name="sourcePosition">Position of the bullet</param>
+    public void ApplyKnockback(Vector2 sourcePosition)
     {
-        if (isBeingKnockedBacked) return;
+        if (IsBeingKnockedBack) return;
 
-        Vector2 direction = (transform.position - sourceposition).normalized;
+        // Compute direction from hit source → enemy
+        Vector2 direction = (rb.position - sourcePosition).normalized; ;
+
+        // Add a little upward bias (optional)
+
+        direction.y = 0.2f;
+        direction.x = Mathf.Sign(direction.x) * 2;
+
+        direction.Normalize();
+
+        Debug.DrawRay(rb.position, direction * 2f, Color.blue, 3f);
+        Debug.DrawRay(rb.position, direction * 2f, Color.red, 1f);
 
         StartCoroutine(HandleKnockback(direction));
     }
 
-    private IEnumerator HandleKnockback(Vector3 direction)
+    private IEnumerator HandleKnockback(Vector2 direction)
     {
-        isBeingKnockedBacked = true;
-        rb.velocity = Vector3.zero;
-        rb.AddForce(direction * knockbackForce, ForceMode2D.Force); //I think problem is here 
+        IsBeingKnockedBack = true;
 
-        yield return new WaitForSeconds(knockbacktime);
+        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
 
-        rb.velocity = Vector3.zero;
-        isBeingKnockedBacked = false;
+        yield return new WaitForSeconds(knockbackTime);
+
+        IsBeingKnockedBack = false;
     }
 }

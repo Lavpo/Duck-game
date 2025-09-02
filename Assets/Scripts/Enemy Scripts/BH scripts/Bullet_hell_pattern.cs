@@ -14,7 +14,6 @@ public class Bullet_hell_pattern : MonoBehaviour
     private int radius = 1;
     private float angle;
     private Vector2[] rotation_positions = new Vector2[rotation_points];
-    private float rotation_speed = 100;
 
     [SerializeField] private GameObject bulletpattern;
 

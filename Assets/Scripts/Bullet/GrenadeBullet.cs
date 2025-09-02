@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Bulletscript : MonoBehaviour
+public class GrenadeBullet : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private float destTime = 3f;
     [SerializeField] private LayerMask lm;
     private float speed;
     private float damage;
+    private float gravity;
+
+    public float Gravity { get { return gravity; } private set { gravity = value; } }
 
     public void Initialise(float speed, float damage = 0)
     {
@@ -19,30 +23,29 @@ public class Bulletscript : MonoBehaviour
 
     // is used when I want to change initial values from other sctips.
     private void Start()
-    { 
+    {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = speed * gameObject.transform.right; 
+        rb.velocity = speed * transform.right;
         Destroy(gameObject, destTime);
+        gravity = rb.gravityScale;
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if ((lm.value & (1 << collider.gameObject.layer)) > 0)
         {
-            //Applying knockback to the enemy
+            //Enemy Damaging
             Knockback kb = collider.gameObject.GetComponent<Knockback>();
 
             if (kb != null)
             {
-                kb.ApplyKnockback(gameObject.transform.position);
+                kb.ApplyKnockback(transform.position);
             }
 
-            //Demaging the enemy
             IDamageble idamageble = collider.GetComponent<IDamageble>();
             if (idamageble != null) idamageble.Damage(damage);//IDE0031
-
             //Destroying bullet
             Destroy(gameObject);
-           
+
         }
         Debug.Log("Layer has been touched, but bullet hasn't destroyed");
     }
