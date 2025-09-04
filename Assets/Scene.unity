@@ -635,7 +635,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.368829
+  orthographic size: 5.6251116
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1815,7 +1815,7 @@ Transform:
   m_GameObject: {fileID: 663976191}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.565, y: 0.244, z: 0}
+  m_LocalPosition: {x: 0.315, y: 0.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1913,7 +1913,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &924739514
 Transform:
   m_ObjectHideFlags: 0
@@ -1995,8 +1995,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  speed: 30
-  timeBetweenShooting: 0.05
+  speed: 25
+  timeBetweenShooting: 0.1
   spread: 0.025
   range: 100
   reloadTime: 3
@@ -2841,7 +2841,7 @@ Transform:
   m_GameObject: {fileID: 1199677373}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.215, y: 0.14, z: 0}
+  m_LocalPosition: {x: 0.479, y: 0.079, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4932,14 +4932,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   speed: 30
-  timeBetweenShooting: 1
+  timeBetweenShooting: 0.3
   spread: 0.01
   range: 100
   reloadTime: 3
   timeBetweenShots: 1
   magazineSize: 12
   bulletsPerTap: 1
-  allowButtonHold: 1
+  allowButtonHold: 0
   bullettrail: {fileID: 2007834072183633319}
   bulletPrefab: {fileID: 2946718550255086811, guid: 61c21da64196f7a47893754e01b657cd, type: 3}
   gunTip: {fileID: 1018786481}

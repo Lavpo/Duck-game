@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 using UnityEngine;
 
+[RequireComponent(typeof(RaycastHit2D))]
 public class Bulletscript : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private float destTime = 3f;
     [SerializeField] private LayerMask lm;
+
+    RaycastHit2D hit;
     private float speed;
     private float damage;
 
@@ -19,9 +23,9 @@ public class Bulletscript : MonoBehaviour
 
     // is used when I want to change initial values from other sctips.
     private void Start()
-    { 
+    {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = speed * gameObject.transform.right; 
+        rb.velocity = speed * gameObject.transform.right;
         Destroy(gameObject, destTime);
     }
     private void OnTriggerEnter2D(Collider2D collider)
@@ -42,7 +46,7 @@ public class Bulletscript : MonoBehaviour
 
             //Destroying bullet
             Destroy(gameObject);
-           
+
         }
         Debug.Log("Layer has been touched, but bullet hasn't destroyed");
     }
