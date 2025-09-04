@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [RequireComponent(typeof(RaycastHit2D))]
@@ -26,8 +27,24 @@ public class Bulletscript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = speed * gameObject.transform.right;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * -1, 1.5f, lm);
+        Debug.DrawRay(transform.position, transform.right * -1.5f, Color.green, 2f);
+        if (hit.collider != null)
+        {
+            Knockback kb = hit.collider.gameObject.GetComponent<Knockback>();
+
+            if (kb != null)
+            {
+                kb.ApplyKnockback(gameObject.transform.position);
+            }
+            IDamageble idamageble = hit.collider.GetComponent<IDamageble>();
+            if (idamageble != null) idamageble.Damage(damage);
+            
+            Destroy(gameObject);
+        }
         Destroy(gameObject, destTime);
     }
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if ((lm.value & (1 << collider.gameObject.layer)) > 0)
