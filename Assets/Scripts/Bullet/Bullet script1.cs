@@ -63,8 +63,6 @@ public class Bulletscript : MonoBehaviour
 
             //Destroying bullet
             Destroy(gameObject);
-
         }
-        Debug.Log("Layer has been touched, but bullet hasn't destroyed");
     }
 }

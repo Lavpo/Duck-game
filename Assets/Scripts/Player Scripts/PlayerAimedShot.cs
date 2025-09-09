@@ -44,8 +44,6 @@ public class PlayerAimedShot : MonoBehaviour
             //Flips a gun on other direction
             sh = new Vector3(sh.x, sh.y * -1, sh.z);
             gunstartlocation.transform.localScale = sh;
-
-            Debug.Log(sh);
         }
         else if (angle < 90 && angle > -90 && IsRotating == false)
         {

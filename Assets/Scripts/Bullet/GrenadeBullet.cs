@@ -47,6 +47,5 @@ public class GrenadeBullet : MonoBehaviour
             Destroy(gameObject);
 
         }
-        Debug.Log("Layer has been touched, but bullet hasn't destroyed");
     }
 }

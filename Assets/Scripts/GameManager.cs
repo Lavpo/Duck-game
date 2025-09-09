@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     public HealthSystem playerHealth = new(100);
     void Awake()
     {
-        Debug.Log("GameManager health: " + playerHealth.GetHealth());
         if(gameManager != null & gameManager != this)
         {
             Destroy(this);

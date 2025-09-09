@@ -12,7 +12,6 @@ public class Heallthscript : MonoBehaviour
     [SerializeField] private HealthScript healthScript;
     private void Start()
     {
-        Debug.Log(healthScript);
         health = maxHealth;
         healthScript.SetMaxHealth(health);
     }
