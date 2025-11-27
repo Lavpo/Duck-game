@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class TrajectoryLine : MonoBehaviour
 {
+    Bulletscript bl = new();
     
+    
+
 }

@@ -72,12 +72,6 @@ public class PlayerMovement : MonoBehaviour
             Vector3 ijefe = new (14, 1.5f, 0);
             Instantiate(box, ijefe, Quaternion.identity);
         }
-
-        //Writes something in a log
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Debug.Log("something");
-        }
         //Calls ColorRandomizer
         if (Input.GetKeyDown(KeyCode.L))
         {
