@@ -185,7 +185,6 @@ MonoBehaviour:
   stepDistance: 0
   force: 0
   maxTrajectoryInerations: 0
-  bullettrail: {fileID: 2007834072183633319}
   bulletPrefab: {fileID: 5395888873161235245, guid: eb33b0f3bc998184b9c6077908d2abb2, type: 3}
   gunTip: {fileID: 739081850}
   whatIsEnemy:
@@ -850,7 +849,6 @@ MonoBehaviour:
   stepDistance: 0
   force: 0
   maxTrajectoryInerations: 0
-  bullettrail: {fileID: 6131101420744263245, guid: a4b63a2b4d3462d49ab045b90f3847ce, type: 3}
   bulletPrefab: {fileID: 6885102087198908979, guid: 9cf3819f468175942a50053ba069389a, type: 3}
   gunTip: {fileID: 663976192}
   whatIsEnemy:
@@ -2025,7 +2023,6 @@ MonoBehaviour:
   stepDistance: 0
   force: 0
   maxTrajectoryInerations: 0
-  bullettrail: {fileID: 2007834072183633319}
   bulletPrefab: {fileID: 5395888873161235245, guid: c691dbcc884c3f34cb3dd663636ffef0, type: 3}
   gunTip: {fileID: 1199677374}
   whatIsEnemy:
@@ -2073,6 +2070,7 @@ GameObject:
   - component: {fileID: 1065662102}
   - component: {fileID: 1065662103}
   - component: {fileID: 1065662104}
+  - component: {fileID: 1065662105}
   m_Layer: 19
   m_Name: gunstartlocation
   m_TagString: Untagged
@@ -2128,6 +2126,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a7879595f7237e4d969f4d9a45205e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1065662105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065662101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ce66121ba35cb44fb6a221b3f14f98e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pref: {fileID: 2946718550255086811, guid: 4140ccd80d2a4684284c34de26b6f72b, type: 3}
+  throwForce: 20
+  ydirection: 100
 --- !u!1 &1132562548
 GameObject:
   m_ObjectHideFlags: 0
@@ -2749,13 +2762,12 @@ MonoBehaviour:
   magazineSize: 30
   bulletsPerTap: 1
   allowButtonHold: 1
-  xdistance: 100
+  xdistance: 0
   yacceleration: 100
   angle: 50
   stepDistance: 0
   force: 0
   maxTrajectoryInerations: 0
-  bullettrail: {fileID: 2007834072183633319}
   bulletPrefab: {fileID: 2946718550255086811, guid: 4140ccd80d2a4684284c34de26b6f72b, type: 3}
   gunTip: {fileID: 1732505033}
   whatIsEnemy:
@@ -4833,7 +4845,6 @@ MonoBehaviour:
   stepDistance: 0
   force: 0
   maxTrajectoryInerations: 0
-  bullettrail: {fileID: 6131101420744263245, guid: a4b63a2b4d3462d49ab045b90f3847ce, type: 3}
   bulletPrefab: {fileID: 4074127933807406044, guid: d98ac985514d44b4184bc6021e91c5ef, type: 3}
   gunTip: {fileID: 1341775069}
   whatIsEnemy:
@@ -4983,7 +4994,6 @@ MonoBehaviour:
   stepDistance: 4
   force: 4
   maxTrajectoryInerations: 5
-  bullettrail: {fileID: 2007834072183633319}
   bulletPrefab: {fileID: 2946718550255086811, guid: 61c21da64196f7a47893754e01b657cd, type: 3}
   gunTip: {fileID: 1018786481}
   whatIsEnemy:
@@ -5093,11 +5103,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!96 &2007834072183633319 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 4698711570593657330, guid: fd3c1ffc63462bc48a874eef1c389668, type: 3}
-  m_PrefabInstance: {fileID: 3632456128741134847}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3445590422588342558
 PrefabInstance:
   m_ObjectHideFlags: 0

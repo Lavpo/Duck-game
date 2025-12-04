@@ -27,10 +27,6 @@ public class Gun : MonoBehaviour
     public float stepDistance;
     public float force;
     public int maxTrajectoryInerations;
-
-    [SerializeField]
-    private TrailRenderer bullettrail;
-
     [SerializeField] private GameObject bulletPrefab;
     private Rigidbody2D bulletRB;
 
@@ -40,12 +36,11 @@ public class Gun : MonoBehaviour
 
     //Reference
     [SerializeField] private Transform gunTip;
-    private GameObject Player;
+
     [SerializeField] private LayerMask whatIsEnemy;
     private void Start()
     {
         // trajectoryRender = GetComponent<LineRenderer>();
-        Player = GameObject.Find(nameof(Player));
         bulletRB = bulletPrefab.GetComponent<Rigidbody2D>();
     }
     private void Awake()
@@ -111,8 +106,8 @@ public class Gun : MonoBehaviour
         //else if (!reloading) Player.GetComponent<PlayerMovement>().SpeedNormaliser();
 
         //Slows down player while holding right click
-        if (Input.GetKey(KeyCode.Mouse1)) Player.GetComponent<PlayerMovement>().SpeedReducer();
-        else if (!Input.GetKey(KeyCode.Mouse1)) Player.GetComponent<PlayerMovement>().SpeedNormaliser();
+        // if (Input.GetKey(KeyCode.Mouse1)) gameObject.GetComponent<PlayerMovement>().SpeedReducer();
+        // else if (!Input.GetKey(KeyCode.Mouse1)) gameObject.GetComponent<PlayerMovement>().SpeedNormaliser();
     }
     private void Reload()
     {
@@ -167,7 +162,7 @@ public class Gun : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, gunTip.position, gunTip.rotation);
         IProjectileInitializer bs = bullet.GetComponent<IProjectileInitializer>();
         // bs.Initialise(speed, damage);
-        bs.Initialise(speed, damage, angle);
+        bs.Initialise(speed, damage);
 
         // Adjusts projectile properties 
 
