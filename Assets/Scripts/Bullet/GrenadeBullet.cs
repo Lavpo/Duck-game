@@ -27,7 +27,11 @@ public class GrenadeBullet : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        // adds gravity to the current object (not necessary)
         rb.AddForce(new Vector2(0, -9.8f));
+
+        // adds rotation to the object based on an angle
+        rb.rotation = Mathf.Atan2( rb.velocity.y, rb.velocity.x ) * Mathf.Rad2Deg;
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
