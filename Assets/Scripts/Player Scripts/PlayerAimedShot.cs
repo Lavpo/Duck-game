@@ -11,6 +11,8 @@ public class PlayerAimedShot : MonoBehaviour
     [SerializeField] private GameObject gunstartlocation;
     [SerializeField] private SpriteRenderer sr;
 
+    Vector2 direction;
+    public Vector2 Direction { get{return direction;} private set{} }
     private float angle;
 
     public bool IsRotating;
@@ -21,7 +23,7 @@ public class PlayerAimedShot : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         //sets direction by finding a cordinates of a vector
-        Vector2 direction = (mousePos - (Vector2)gunstartlocation.transform.position).normalized;
+        direction = (mousePos - (Vector2)gunstartlocation.transform.position).normalized;
 
         //sets an angle using arctangens function 
         angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -44,8 +46,6 @@ public class PlayerAimedShot : MonoBehaviour
             //Flips a gun on other direction
             sh = new Vector3(sh.x, sh.y * -1, sh.z);
             gunstartlocation.transform.localScale = sh;
-
-            Debug.Log(sh);
         }
         else if (angle < 90 && angle > -90 && IsRotating == false)
         {

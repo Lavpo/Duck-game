@@ -1,44 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using NUnit.Framework;
+using Unity.Collections;
+using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
+
+// If someone drags your script onto a GameObject without a Rigidbody2D, then your script will break.
+// ^^^^^^^^^^^^^
+[RequireComponent(typeof(Rigidbody2D))]
 public class GrenadeBullet : MonoBehaviour
 {
-    private Rigidbody2D rb;
     [SerializeField] private float destTime = 3f;
     [SerializeField] private LayerMask lm;
-    private float speed;
-    private float damage;
-    private float gravity;
+    private Knockback knockback;
+    private Rigidbody2D rb;
+    private float speed = 10, damage;
 
-    public float Gravity { get { return gravity; } private set { gravity = value; } }
-
-    public void Initialise(float speed, float damage = 0)
-    {
-        this.speed = speed;
-        this.damage = damage;
-    }
-
-    // is used when I want to change initial values from other sctips.
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = speed * transform.right;
         Destroy(gameObject, destTime);
-        gravity = rb.gravityScale;
+    }
+    private void FixedUpdate()
+    {
+        // adds gravity to the current object (not necessary)
+        rb.AddForce(new Vector2(0, -9.8f));
+
+        // adds rotation to the object based on an angle
+        rb.rotation = Mathf.Atan2( rb.velocity.y, rb.velocity.x ) * Mathf.Rad2Deg;
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if ((lm.value & (1 << collider.gameObject.layer)) > 0)
         {
             //Enemy Damaging
-            Knockback kb = collider.gameObject.GetComponent<Knockback>();
+            knockback = collider.gameObject.GetComponent<Knockback>();
 
-            if (kb != null)
+            if (knockback != null)
             {
-                kb.ApplyKnockback(transform.position);
+                knockback.ApplyKnockback(transform.position);
             }
 
             IDamageble idamageble = collider.GetComponent<IDamageble>();
@@ -47,6 +51,5 @@ public class GrenadeBullet : MonoBehaviour
             Destroy(gameObject);
 
         }
-        Debug.Log("Layer has been touched, but bullet hasn't destroyed");
     }
 }

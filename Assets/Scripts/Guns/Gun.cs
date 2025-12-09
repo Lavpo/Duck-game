@@ -1,31 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;   
 
 public class Gun : MonoBehaviour
 {
     //Gun stats 
-    public int damage, speed;
+    [Header("Gun stats")]
+    public float damage, speed, mass;
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
     int bulletsLeft, bulletsShot;
 
-    [SerializeField]
-    private TrailRenderer bullettrail;
+    [Header("Gun stats (with gravity involved)")]
+    public float xdistance, yacceleration;
+    public float angle;
 
+    // LineRenderer trajectoryRender;
+    [Header("Trajectory")]
+    Vector2 DragStartPosition;
+    Vector2 DragEndPosition;
+    Vector2 velocity;
+
+
+    public float stepDistance;
+    public float force;
+    public int maxTrajectoryInerations;
     [SerializeField] private GameObject bulletPrefab;
+    private Rigidbody2D bulletRB;
+
 
     //bools
     bool shooting, readyToShoot, reloading, buttonpressed;
 
     //Reference
     [SerializeField] private Transform gunTip;
-    private GameObject Player;
+
     [SerializeField] private LayerMask whatIsEnemy;
     private void Start()
     {
-        Player = GameObject.Find(nameof(Player));
+        // trajectoryRender = GetComponent<LineRenderer>();
+        bulletRB = bulletPrefab.GetComponent<Rigidbody2D>();
     }
     private void Awake()
     {
@@ -34,6 +50,35 @@ public class Gun : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            DragStartPosition = Camera.main.WorldToScreenPoint(Input.mousePosition);
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            DragStartPosition = Camera.main.WorldToScreenPoint(Input.mousePosition);
+            velocity = (DragStartPosition - DragEndPosition) * force;
+            Vector2[] trajectoryBall = Plot(bulletRB, (Vector2)transform.position, velocity, maxTrajectoryInerations);
+            // trajectoryRender.positionCount = trajectoryBall.Length;
+            Vector3[] positions = new Vector3[trajectoryBall.Length];
+            for (int i = 0; i < trajectoryBall.Length; i++)
+            {
+                positions[i] = trajectoryBall[i];
+            }
+            // trajectoryRender.SetPositions(positions);
+        }
+        
+        if (Input.GetMouseButton(0))
+        {
+            DragStartPosition = Camera.main.WorldToScreenPoint(Input.mousePosition);
+            bulletRB.isKinematic = false;
+            velocity = (DragStartPosition - DragEndPosition) * force;
+            bulletRB.velocity = velocity;
+            // trajectoryRender.positionCount = 0;
+            // trajectoryRender.enabled = false; 
+        }
+
         MyInput();
         //Drawing raycast
         if (Input.GetKeyDown(KeyCode.K) && !buttonpressed) buttonpressed = true;
@@ -61,8 +106,8 @@ public class Gun : MonoBehaviour
         //else if (!reloading) Player.GetComponent<PlayerMovement>().SpeedNormaliser();
 
         //Slows down player while holding right click
-        if (Input.GetKey(KeyCode.Mouse1)) Player.GetComponent<PlayerMovement>().SpeedReducer();
-        else if (!Input.GetKey(KeyCode.Mouse1)) Player.GetComponent<PlayerMovement>().SpeedNormaliser();
+        // if (Input.GetKey(KeyCode.Mouse1)) gameObject.GetComponent<PlayerMovement>().SpeedReducer();
+        // else if (!Input.GetKey(KeyCode.Mouse1)) gameObject.GetComponent<PlayerMovement>().SpeedNormaliser();
     }
     private void Reload()
     {
@@ -115,7 +160,8 @@ public class Gun : MonoBehaviour
 
         // Instantiates the object on a scene and than adjusts current values  
         GameObject bullet = Instantiate(bulletPrefab, gunTip.position, gunTip.rotation);
-        Bulletscript bs = bullet.GetComponent<Bulletscript>();
+        IProjectileInitializer bs = bullet.GetComponent<IProjectileInitializer>();
+        // bs.Initialise(speed, damage);
         bs.Initialise(speed, damage);
 
         // Adjusts projectile properties 
@@ -137,6 +183,29 @@ public class Gun : MonoBehaviour
         bulletsLeft = magazineSize;
         reloading = false;
         Debug.Log("Reloaded!!!");
+    }
+
+    public Vector2[] Plot(Rigidbody2D rigidbody, Vector2 pos, Vector2 velocity, int steps)
+    {
+        //if your camera is set to Perspective use Vector3
+        //if your camera is set to Orthographic use Vector2
+ 
+        Vector2[] results = new Vector2[steps];
+ 
+        float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations * stepDistance;
+        Vector2 gravityAccel = Physics2D.gravity * rigidbody.gravityScale * timestep * timestep;
+ 
+        float drag = 1f - timestep * rigidbody.drag;
+        Vector2 moveStep = velocity * timestep;
+ 
+        for (int i = 0; i < steps; i++)
+        {
+            moveStep += gravityAccel;
+            moveStep *= drag;
+            pos += moveStep;
+            results[i] = pos;
+        }
+        return results;
     }
 
 
