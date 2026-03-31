@@ -43,21 +43,23 @@ public class Throwingagrenade : MonoBehaviour
         {
 
             // sets down x and y directions, that will work 
-            xdirection = Camera.main.ScreenToViewportPoint(Input.mousePosition).x;
+            // ScreenToViewportPoint is used here cuz normalised values are needed for the script to work
+            // using ScreenToWorldPoint won't work, cuz it relies on POSITION of a character on a screen
+            // (basically, the shooting angle wont only depent from the mouse position on a screen, but 
+            // also from characters position on in the gamespace)
+
+            // Value of x is subtracted by 0.5 to shift Viewport borders from (0, 1) to (-0.5, 0.5)
+            xdirection = Camera.main.ScreenToViewportPoint(Input.mousePosition).x - 0.5f;
             ydirection = changedangle * xdirection;
 
-
-
-
-            // multiplier
-            ydirection *= 100;
-            xdirection *= 100;
+            // multipliers
+            xdirection *= 1000f;  
+            ydirection *= 100f;
 
             Debug.Log("xdirection = "+  xdirection + " :: ydirection = " + ydirection);
 
             // instantiate an object
             GameObject bulletpref = Instantiate(pref, gameObject.transform.position, gameObject.transform.rotation); 
-
             // takes a rigidbody from this given object    
             Rigidbody2D rb = bulletpref.GetComponent<Rigidbody2D>();
 
