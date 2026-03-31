@@ -50,37 +50,13 @@ public class Gun : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            DragStartPosition = Camera.main.WorldToScreenPoint(Input.mousePosition);
-        }
-
-        if (Input.GetMouseButton(0))
-        {
-            DragStartPosition = Camera.main.WorldToScreenPoint(Input.mousePosition);
-            velocity = (DragStartPosition - DragEndPosition) * force;
-            Vector2[] trajectoryBall = Plot(bulletRB, (Vector2)transform.position, velocity, maxTrajectoryInerations);
-            // trajectoryRender.positionCount = trajectoryBall.Length;
-            Vector3[] positions = new Vector3[trajectoryBall.Length];
-            for (int i = 0; i < trajectoryBall.Length; i++)
-            {
-                positions[i] = trajectoryBall[i];
-            }
-            // trajectoryRender.SetPositions(positions);
-        }
-        
-        if (Input.GetMouseButton(0))
-        {
-            DragStartPosition = Camera.main.WorldToScreenPoint(Input.mousePosition);
-            bulletRB.isKinematic = false;
-            velocity = (DragStartPosition - DragEndPosition) * force;
-            bulletRB.velocity = velocity;
-            // trajectoryRender.positionCount = 0;
-            // trajectoryRender.enabled = false; 
-        }
-
         MyInput();
-        //Drawing raycast
+        GunRaycast();
+    }
+
+    private void GunRaycast()
+    {
+        //Draws raycast where a gun points to.
         if (Input.GetKeyDown(KeyCode.K) && !buttonpressed) buttonpressed = true;
         if (buttonpressed) Debug.DrawRay(gunTip.transform.position, gunTip.transform.right * 100, Color.blue);
         if (Input.GetKeyDown(KeyCode.I) && buttonpressed) buttonpressed = false;
@@ -101,7 +77,7 @@ public class Gun : MonoBehaviour
             Shoot();
         }
 
-        //Slows down player while reloading
+        //Slows down a player while reloading
         //if (reloading) Player.GetComponent<PlayerMovement>().SpeedReducer();
         //else if (!reloading) Player.GetComponent<PlayerMovement>().SpeedNormaliser();
 
@@ -158,14 +134,15 @@ public class Gun : MonoBehaviour
         //}
 
 
-        // Instantiates the object on a scene and than adjusts current values  
+        // Instantiates an object on a scene and than adjusts current values  
         GameObject bullet = Instantiate(bulletPrefab, gunTip.position, gunTip.rotation);
+
+        // initializes bullet's speed and damage using IProjectileInitializer interface 
         IProjectileInitializer bs = bullet.GetComponent<IProjectileInitializer>();
-        // bs.Initialise(speed, damage);
+
         bs.Initialise(speed, damage);
 
         // Adjusts projectile properties 
-
         Invoke(nameof(ResetShot), timeBetweenShooting);
 
         bulletsLeft--;
@@ -173,7 +150,7 @@ public class Gun : MonoBehaviour
 
         if (bulletsLeft > 0 && bulletsShot > 0)
             Invoke(nameof(Shoot), timeBetweenShots);
-    }
+        }
     private void ResetShot()
     {
         readyToShoot = true;
@@ -185,28 +162,28 @@ public class Gun : MonoBehaviour
         Debug.Log("Reloaded!!!");
     }
 
-    public Vector2[] Plot(Rigidbody2D rigidbody, Vector2 pos, Vector2 velocity, int steps)
-    {
-        //if your camera is set to Perspective use Vector3
-        //if your camera is set to Orthographic use Vector2
+    // public Vector2[] Plot(Rigidbody2D rigidbody, Vector2 pos, Vector2 velocity, int steps)
+    // {
+    //     //if your camera is set to Perspective use Vector3
+    //     //if your camera is set to Orthographic use Vector2
  
-        Vector2[] results = new Vector2[steps];
+    //     Vector2[] results = new Vector2[steps];
  
-        float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations * stepDistance;
-        Vector2 gravityAccel = Physics2D.gravity * rigidbody.gravityScale * timestep * timestep;
+    //     float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations * stepDistance;
+    //     Vector2 gravityAccel = Physics2D.gravity * rigidbody.gravityScale * timestep * timestep;
  
-        float drag = 1f - timestep * rigidbody.drag;
-        Vector2 moveStep = velocity * timestep;
+    //     float drag = 1f - timestep * rigidbody.drag;
+    //     Vector2 moveStep = velocity * timestep;
  
-        for (int i = 0; i < steps; i++)
-        {
-            moveStep += gravityAccel;
-            moveStep *= drag;
-            pos += moveStep;
-            results[i] = pos;
-        }
-        return results;
-    }
+    //     for (int i = 0; i < steps; i++)
+    //     {
+    //         moveStep += gravityAccel;
+    //         moveStep *= drag;
+    //         pos += moveStep;
+    //         results[i] = pos;
+    //     }
+    //     return results;
+    // }
 
 
     //later can be used to adjust damage and bullet speed from this script

@@ -12,19 +12,27 @@ using UnityEngine;
 // If someone drags your script onto a GameObject without a Rigidbody2D, then your script will break.
 // ^^^^^^^^^^^^^
 [RequireComponent(typeof(Rigidbody2D))]
-public class GrenadeBullet : MonoBehaviour
+public class GrenadeBullet : MonoBehaviour, IProjectileInitializer
 {
     [SerializeField] private float destTime = 3f;
     [SerializeField] private LayerMask lm;
     private Knockback knockback;
     private Rigidbody2D rb;
-    private float damage;
+    private float damage, speed;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.velocity = speed * transform.right;
         Destroy(gameObject, destTime);
     }
+    public void Initialise(float speed, float damage)
+    {
+        this.speed = speed;
+        this.damage = damage;
+    }
+
+
     private void FixedUpdate()
     {
         // adds gravity to the current object (not necessary)
