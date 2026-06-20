@@ -23,7 +23,7 @@ public class GrenadeBullet : MonoBehaviour, IProjectileInitializer
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = speed * transform.right;
+        rb.linearVelocity = speed * transform.right;
         Destroy(gameObject, destTime);
     }
     public void Initialise(float speed, float damage)
@@ -39,7 +39,7 @@ public class GrenadeBullet : MonoBehaviour, IProjectileInitializer
         rb.AddForce(new Vector2(0, -9.8f));
 
         // adds rotation to the object based on an angle
-        rb.rotation = Mathf.Atan2( rb.velocity.y, rb.velocity.x ) * Mathf.Rad2Deg;
+        rb.rotation = Mathf.Atan2( rb.linearVelocity.y, rb.linearVelocity.x ) * Mathf.Rad2Deg;
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -47,11 +47,6 @@ public class GrenadeBullet : MonoBehaviour, IProjectileInitializer
         {
             //Enemy Damaging
             knockback = collider.gameObject.GetComponent<Knockback>();
-
-            if (knockback != null)
-            {
-                knockback.ApplyKnockback(transform.position);
-            }
 
             IDamageble idamageble = collider.GetComponent<IDamageble>();
             if (idamageble != null) idamageble.Damage(damage);//IDE0031

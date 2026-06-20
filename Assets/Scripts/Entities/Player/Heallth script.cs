@@ -13,7 +13,6 @@ public class Heallthscript : MonoBehaviour
     private void Start()
     {
         health = maxHealth;
-        healthScript.SetMaxHealth(health);
     }
     public float TakeDamage(float damage)
     {
@@ -26,7 +25,6 @@ public class Heallthscript : MonoBehaviour
         {
             SceneManager.LoadScene("Scene");
         }
-        healthScript.SetHealth(health);
         return health;
     }
     public float TakeHeal(float heal)

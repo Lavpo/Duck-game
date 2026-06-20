@@ -19,11 +19,11 @@ public class Enemy_Moving : MonoBehaviour, IDamageble
     {
         if (gameObject.transform.position.x > player.position.x)
         {
-            rb.velocity = new Vector2(-enemySpeed, rb.velocity.y);
+            rb.linearVelocity = new Vector2(-enemySpeed, rb.linearVelocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(enemySpeed, rb.velocity.y);
+            rb.linearVelocity = new Vector2(enemySpeed, rb.linearVelocity.y);
         }
     }
     public void Damage(float takeDamage)

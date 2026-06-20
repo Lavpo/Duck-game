@@ -18,7 +18,7 @@ public class SunScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        rb.velocity = speed * transform.right;
+        rb.linearVelocity = speed * transform.right;
 
         Destroy(gameObject, destTime);
     }
@@ -33,11 +33,6 @@ public class SunScript : MonoBehaviour
         {
             //Enemy Damaging
             Knockback kb = collider.gameObject.GetComponent<Knockback>();
-
-            if (kb != null)
-            {
-                kb.ApplyKnockback(transform.position);
-            }
 
             IDamageble idamageble = collider.GetComponent<IDamageble>();
             if (idamageble != null) idamageble.Damage(damage);//IDE0031

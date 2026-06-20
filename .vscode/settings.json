@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Duck-game.sln"
+    "dotnet.defaultSolution": "Duck-game.slnx"
 }

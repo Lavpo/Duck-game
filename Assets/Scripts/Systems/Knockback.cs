@@ -1,53 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class Knockback : MonoBehaviour
 {
     public float knockbackTime = 0.2f;
-    public float knockbackForce = 10f;
-
-    public bool IsBeingKnockedBack { get; private set; }
-
+    public float knockbackForce;
     private Rigidbody2D rb;
+    private bool IsBeingKnockedBack;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
-    /// <summary>
-    /// Call this when the enemy is hit, passing the bullet's position at collision.
-    /// </summary>
-    /// <param name="sourcePosition">Position of the bullet</param>
-    public void ApplyKnockback(Vector2 sourcePosition)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (IsBeingKnockedBack) return;
+        if (other.gameObject.CompareTag("Enemy") && !IsBeingKnockedBack)
+        {
+            StartCoroutine(HandleKnockback());
 
-        // Compute direction from hit source → enemy
-        Vector2 direction = (rb.position - sourcePosition).normalized; ;
+            Debug.Log("Knockback test 1");
+        }
+    } 
 
-        // Add a little upward bias (optional)
-
-        direction.y = 0.2f;
-        direction.x = Mathf.Sign(direction.x) * 2;
-
-        direction.Normalize();
-
-        Debug.DrawRay(rb.position, direction * 2f, Color.blue, 3f);
-        Debug.DrawRay(rb.position, direction * 2f, Color.red, 1f);
-
-        StartCoroutine(HandleKnockback(direction));
-    }
-
-    private IEnumerator HandleKnockback(Vector2 direction)
+    private IEnumerator HandleKnockback()
     {
         IsBeingKnockedBack = true;
 
-        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(10, 1) * knockbackForce, ForceMode2D.Impulse);
 
         yield return new WaitForSeconds(knockbackTime);
 
         IsBeingKnockedBack = false;
+
+        Debug.Log("Knockback test 2");
     }
 }

@@ -90,30 +90,30 @@ public class PlayerMovement : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
         if (isCrouching) 
         {
-            rb.velocity = new Vector2(moveX * PlayerSpeed / 2, rb.velocity.y);
+            rb.linearVelocity = new Vector2(moveX * PlayerSpeed / 2, rb.linearVelocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(moveX * PlayerSpeed, rb.velocity.y);
+            rb.linearVelocity = new Vector2(moveX * PlayerSpeed, rb.linearVelocity.y);
         }
-        animator.SetFloat("xVelocity", Mathf.Abs(rb.velocity.x));
+        animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
+
     }
     void Jumping()
     {
-        //Makes player just jumping 
-        //if (Input.GetKeyDown(KeyCode.Space) && CTimeCounter > 0f)
-        //{
-        //    rb.velocity = new Vector2(rb.velocity.x, JumpPower);
-        //}
-        //if (Input.GetKeyUp(KeyCode.Space) && rb.velocity.y > 0f)
-        //{
-        //    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-        //    CTimeCounter = 0f;
-        //}
+        if (Input.GetKeyDown(KeyCode.Space) && CTimeCounter > 0f)
+        {
+           rb.linearVelocity = new Vector2(rb.linearVelocity.x, JumpPower);
+        }
+        if (Input.GetKeyUp(KeyCode.Space) && rb.linearVelocity.y > 0f)
+        {
+           rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+           CTimeCounter = 0f;
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            rb.velocity = new Vector2(rb.velocity.x, JumpPower);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, JumpPower);
             animator.SetBool("IsJumping", true);
         }
         else if (Input.GetKeyUp(KeyCode.Space))
@@ -153,9 +153,7 @@ public class PlayerMovement : MonoBehaviour
             isCrouching = false;
             mainCol.enabled = true;
             crouchCol.enabled = false;
-            Debug.Log("something over there");
             check = false;
-            Debug.Log("script is working");
         }
     }
     void DrawGizmos()

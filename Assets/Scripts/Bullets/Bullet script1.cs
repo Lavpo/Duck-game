@@ -32,7 +32,7 @@ public class Bulletscript : MonoBehaviour, IProjectileInitializer
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = speed * transform.right;
+        rb.linearVelocity = speed * transform.right;
         
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * -1, 1.5f, lm);
         Debug.DrawRay(transform.position, transform.right * -1.5f, Color.green, 2f);
@@ -40,10 +40,6 @@ public class Bulletscript : MonoBehaviour, IProjectileInitializer
         {
             Knockback kb = hit.collider.gameObject.GetComponent<Knockback>();
 
-            if (kb != null)
-            {
-                kb.ApplyKnockback(gameObject.transform.position);
-            }
             IDamageble idamageble = hit.collider.GetComponent<IDamageble>();
             if (idamageble != null) idamageble.Damage(damage);
             
@@ -75,10 +71,6 @@ public class Bulletscript : MonoBehaviour, IProjectileInitializer
             //Applying knockback to the enemy
             Knockback kb = collider.gameObject.GetComponent<Knockback>();
 
-            if (kb != null)
-            {
-                kb.ApplyKnockback(gameObject.transform.position);
-            }
 
             //Demaging the enemy
             IDamageble idamageble = collider.GetComponent<IDamageble>();
